@@ -1,0 +1,26 @@
+<div class="new_bloc_popup">
+
+   <div class="modal-header">
+   Nouvelle page
+      </div>
+
+{{ form_start(form) }}
+<div class="line">
+{{ form_label(form.title) }} 
+{{ form_widget(form.title) }} 
+</div>
+
+<div class="line">
+{{ form_label(form.order) }} 
+{{ form_widget(form.order) }} 
+</div>
+<div class="actions">
+
+{{ form_widget(form.submit) }} 
+<button class="left btn btn-default btn-sm "  id="mhq_centralbundle_aq_bloc_init_cancel" type="button" aria-hidden="true" data-dismiss="modal" >Annuler</button>
+<div class="clear"></div>
+{{ form_rest(form) }}
+{{ form_end(form) }}
+
+</div>
+</div>

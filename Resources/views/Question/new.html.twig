@@ -1,0 +1,64 @@
+{% extends 'quizBackBundle::layout.html.twig' %}
+    {% block main_content -%}
+
+    <div class="tabbable tabbable-bordered">
+        <ul class="nav nav-tabs">
+            {% for key,category in categories %}
+                {% if entity.getCategory == key  %}
+                    <li class="active"><a data-toggle="tab" href="#tab_br{{ loop.index }}" {% if loop.index == 1 %} aria-expanded="true"  {% endif %}>{{category }}</a></li> 
+
+                {% else %}
+                    <li class=""><a  href="{{ path('edit_quiz', {"quiz" : entity.getQuiz().getId() , "category_code" : key  }) }}" {% if loop.index == 1 %} aria-expanded="true"  {% endif %}> {{category }}</a></li> 
+                    {% endif %}
+                {% endfor %}
+        </ul>
+        <div class="tab-content">
+            {% for key,category in categories %}
+                <div id="tab_br{{ loop.index }}" class="tab-pane {% if entity.getCategory == key  %}active{% endif %}">
+                    {% if entity.getCategory == key %}
+                        <div class="bloc_header">
+                            <div class="left"><strong>{{ entity.getTitle() }}</strong></div>
+                            <div class="right"><a href="{{ path('edit_bloc', {"bloc" : entity.getId })}}">Retour à la liste des questions</a> </div>
+                        </div>
+                        <div class="clear"></div>
+                        
+                       {% include 'quizBackBundle:Question:form.html.twig' with {'form': form}   %}
+                        <!-- /actions -->
+
+                    {% endif %}
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" style=" width: 500px !important;">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div> 
+    
+    <script type="text/javascript">
+        $("#quiz_question_submit").click(function (e) {
+
+            var orders = [];
+            $(".quiz_response-element.order input[type=number]").each(function () {
+                if (jQuery.inArray($(this).val(), orders) >= 0) {
+                    $(".alert").html("{{ 'question.errors.RESPONSE_ORDER' | trans }}");
+                    $(".alert").show();
+                    e.preventDefault();
+                } else {
+                    orders.push($(this).val());
+                }
+            });
+
+
+            return true;
+            // 	$("#myForm").submit();
+        });
+    </script>
+<script src="{{ asset('bundles/quizback/js/quiz.js') }}"></script>
+
+{% endblock %}
+
+

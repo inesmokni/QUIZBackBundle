@@ -1,0 +1,106 @@
+{% extends 'quizBackBundle::layout.html.twig' %}
+ {% block main_content -%}
+ 
+<div class="tabbable tabbable-bordered">
+	<ul class="nav nav-tabs">
+		{% for key,category in categories %}
+		{% if entity.getCategory == key  %}
+		<li class="active"><a data-toggle="tab" href="#tab_br{{ loop.index }}" {% if loop.index == 1 %} aria-expanded="true"  {% endif %}>{{category }}</a></li> 
+		
+		{% else %}
+		  <li class=""><a  href="{{ path('edit_quiz', {"quiz" : entity.getQuiz().getId() , "category_code" : key  }) }}" {% if loop.index == 1 %} aria-expanded="true"  {% endif %}> {{category }}</a></li> 
+		{% endif %}
+		{% endfor %}
+	</ul>
+	<div class="tab-content">
+		{% for key,category in categories %}
+		<div id="tab_br{{ loop.index }}" class="tab-pane {% if entity.getCategory == key  %}active{% endif %}">
+			{% if entity.getCategory == key %}
+				 <div class="bloc_header">
+					 <div class="left"><strong>Page {{ entity.getOrder() }}</strong></div>
+					 <div class="right"><a href="{{ path('edit_quiz', {"quiz" : entity.getQuiz.getId }) }}">Retour à la liste des pages</a> </div>
+				 </div>
+				 <div class="clear"></div>
+				<!-- questions --------------------------------------------------------------------->
+				{% if entity.getQuestions() | length %}
+				<table class="table table-striped table-bordered dTableR dataTable question_list">
+				      <thead>
+				       	<tr>
+				           <th>{{ "question.list.question" | trans }}</th>
+				           <th>{{ "question.list.order" | trans }}</th>
+				           <th>Actions</th>
+				        </tr>
+				       </thead>
+				          <tbody>
+				             {% for question in entity.getQuestions() %}
+				                <tr>
+				                  <td>
+{# 				                  {% if not entity.getQuiz.getIsActive and allow_edit  %}#}
+				                  		{%if question.getIsNoted == true %} <i class="splashy-star_full"></i>{%endif%}<a href="{{ path('question_edit', {'question' : question.getId}) }}"> {{ question.getTranslatedContent() }} </a></td>
+{# 				                  	{% else %}#}
+{# 				                  		{%if question.getIsNoted == true %} <i class="splashy-star_full"></i>{%endif%}<a href="{{ path('question_edit_disabled', {'id' : question.getId}) }}"> {{ question.getTranslatedContent() }} </a></td>#}
+{# 				                  	{% endif %}#}
+				                   <td>{{ question.getOrder }}</td>
+				                            <td>
+{# 				                            {% if not entity.getQuiz.getIsActive and allow_edit  %}#}
+	                        	 				<a href="{{ path('question_edit', {'question' : question.getId}) }}"><i title="{{ "button.edit" | trans }}" class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+				                            	<a onclick="deleteQuestion('{{ 'question.delete_msg'| trans  }}', '{{ path("quizquestion_delete_ajax", { 'id': question.getId }) }}')" href="#"><i title="{{ "button.delete" | trans }}" class="fa fa-trash fa-6" aria-hidden="true"></i></a>
+{# 				                        	{% endif %}#}
+				                        </tr>
+				                        {% endfor %}
+				          </tbody>
+			     </table>
+			     {% else %}
+			     <div class="display-block alert-info alert" id="res-msg">{{ "question.empty" | trans }}</div>
+			     {% endif %}
+					<!-- actions -->
+{# 					{% if not entity.getQuiz.getIsActive and allow_edit  %}#}
+						<div class="form-actions" id="aq_questions_actions" >
+	                    		<a id="add-another-aq_question" class="right width-link-add-edit btn btn-default btn-sm" href="{{ path('quizquestion_new', {'bloc' :entity.getId}) }}"><i class="splashy-document_letter_add"></i>{{ "page.add" | trans }}</a>
+	               		</div>
+{# 	               	{% endif %}#}
+               		<!-- /actions -->
+			{% endif %}
+		</div>
+
+		{% endfor %}
+	</div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	<div class="modal-dialog modal-lg" style=" width: 500px !important;">
+		<div class="modal-content">
+		</div>
+	</div>
+</div> 
+<script type="text/javascript">
+ $(document).ready(function() {
+     $('table.question_list').DataTable( {
+    	 "aaSorting": [[ 1, "asc" ]],
+        bFilter: false, bInfo: false,
+        bPaginate: false,
+        "aoColumnDefs": [
+                         {
+                             "bSortable": false,
+                             "aTargets": [2]
+                         }
+                     ]
+     } );
+} );
+var text_delete = "{{'button.delete'|trans}}";
+var text_cancel = "{{'button.cancel'|trans}}";
+var text_loading = "{{'datatable.loding'|trans}}";
+function deleteQuestion(msg_delete, url){
+	smoke.confirm(msg_delete,function(e){
+		if (e){
+			window.location.href = url;
+			//smoke.alert('"yeah it is" pressed', {ok:"close"});
+		}else{
+			//smoke.alert('"no way" pressed', {ok:"close"});
+		}
+	}, {ok:text_delete, cancel:text_cancel});
+}
+</script> 
+{% endblock %}
+
+

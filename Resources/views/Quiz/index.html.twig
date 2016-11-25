@@ -1,0 +1,117 @@
+{% extends 'quizBackBundle::layout.html.twig' %}
+{% block main_content -%}
+{% if entities | length  %}
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+ <div class="col-sm-12 col-md-12">
+				<table class="table table-striped table-bordered table-condensed " id="quiz_list">
+                <thead>
+                    <tr>
+                        <th>{{ "quiz.list.version" | trans }}</th>
+                        <th>{{ "quiz.list.nb_question" | trans }}</th>
+{#                         <th>{{ "quiz.list.nb_user" | trans }}</th>#}
+                        <th>{{ "quiz.list.status" | trans }}</th>
+                        <th>{{ "Actions" | trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                 	<tr {% if entity.getIsActive %} class="quiz_active" {% endif %} >
+                        <td>{{ entity.getVersion() }}</td>
+                        <td> {{ entity.getNbQuestion }}</td>
+{#                         <td> {{ nb_users[entity.getId] }} </td>#}
+                        <td>{{ entity.getIsActive ? "quiz.is_active.yes" | trans  : "quiz.is_active.no" | trans }}</td>
+                        <td>
+                        	 <a href="{{ path('edit_quiz', {"quiz" : entity.getId }) }}">{{ "quiz.list.edit" | trans }}</i></a> |
+{#                         	 {% if not entity.getIsActive and nb_users[entity.getId] == 0  %}#}
+                        	 <a onclick="deleteQuiz('{{ 'quiz.list.delete_msg'| trans  }}', '{{ path("quiz_delete", { 'id': entity.id }) }}')" href="javascript:void(0);" title="supprimer ct auto questionnaire" style="border:none;">{{ "quiz.list.delete" | trans }}</a> |
+{#                         	{% endif %}#}
+                        	<a onclick="duplicateAQ('{{ 'quiz.list.duplicate_msg'| trans  }}', '{{ path('duplicate_quiz', {"id" : entity.getId }) }}')"  href="javascript:void(0);">{{ "quiz.list.duplicate" | trans }}</i></a>
+                        	 {% if not entity.getIsActive  %} | <a onclick="activateAQ('{{ 'quiz.list.activate_msg' | trans }}','{{ path('activate_quiz', {"id" : entity.getId }) }}')" href="javascript:void(0);">Activer</a>{% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                    
+                </tbody>
+            </table>	
+             <div class="spinner" id="spinner" style="display:none;text-align:center;"><img height="120" alt="Loading..." src="{{ asset('bundles/quizback/images/loading_spinner.gif') }}">
+             	 	<div class="spinner_text">{{ "quiz.list.duplicate_loading" | trans  }}</div></div>
+			</div>
+<script type="text/javascript">
+var text_delete = "{% trans %}button.delete{% endtrans %}";
+var text_cancel = "{% trans %}button.cancel{% endtrans %}";
+
+var text_dupliacte = "{% trans %}quiz.list.duplicate{% endtrans %}";
+var text_activate = "{% trans %}quiz.list.activate{% endtrans %}";
+
+
+var text_loading = "{{'datatable.loding'|trans}}";
+function deleteQuiz(msg_delete, url){
+	smoke.confirm(msg_delete,function(e){
+		if (e){
+			window.location.href = url;
+			//smoke.alert('"yeah it is" pressed', {ok:"close"});
+		}else{
+			//smoke.alert('"no way" pressed', {ok:"close"});
+		}
+	}, {ok:text_delete, cancel:text_cancel});
+}
+
+function duplicateAQ(msg_duplicate, url){
+	smoke.confirm(msg_duplicate,function(e){
+		if (e){
+			$("#quiz_list").hide();
+			$("#spinner").show();
+			$.ajax({
+				url: url,
+				method: "GET",
+				dataType: "json",
+				success: function(result){
+					if( result.success == true){
+						window.location.href = result.url;
+					}
+			    },
+				error: function(result){
+					console.log(result);
+			    }
+			});
+						
+			//smoke.alert('"yeah it is" pressed', {ok:"close"});
+		}else{
+			//smoke.alert('"no way" pressed', {ok:"close"});
+		}
+	}, {ok:text_dupliacte, cancel:text_cancel});
+}
+
+function activateAQ(msg_duplicate, url){
+	smoke.confirm(msg_duplicate,function(e){
+		if (e){
+			$("#quiz_list").hide();
+			$(".spinner_text").html("{{ "quiz.list.activate_loading" | trans  }}");
+			$("#spinner").show();
+			$.ajax({
+				url: url,
+				method: "GET",
+				dataType: "json",
+				success: function(result){
+					if( result.success == true){
+						window.location.href = result.url;
+					}
+			    },
+				error: function(result){
+					console.log(result);
+			    }
+			});
+						
+			//smoke.alert('"yeah it is" pressed', {ok:"close"});
+		}else{
+			//smoke.alert('"no way" pressed', {ok:"close"});
+		}
+	}, {ok:text_activate, cancel:text_cancel});
+}
+</script> 
+{% else %}
+	<a href="{{ path('init_quiz')}}" >{{ "quiz.init" | trans }}</a>
+{% endif %}
+{% endblock %}
+
+

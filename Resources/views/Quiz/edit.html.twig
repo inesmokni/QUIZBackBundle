@@ -1,0 +1,87 @@
+{% extends 'quizBackBundle::layout.html.twig' %}
+{% block main_content -%}
+ <div class="tabbable tabbable-bordered">
+					<ul class="nav nav-tabs">
+					{% for key,category in categories %}
+					 	<li class="{% if key == current_category %}active{% endif %}"><a data-toggle="tab" href="#tab_br{{ loop.index }}" {% if key == current_category %} aria-expanded="true" {% endif %}>{{ category }}</a></li>
+					{% endfor %}
+					</ul>
+					<div class="tab-content">
+					{% for key,category in categories %}
+						<div id="tab_br{{ loop.index }}" class="tab-pane {% if key == current_category %}active{% endif %}">
+						 	{% if  blocs[key]  %}
+							 	<table class="table table-striped table-bordered dTableR dataTable bloc_list">
+				                    <thead>
+				                        <tr>
+				                            <th>{{ "page.list.page" | trans }}</th>
+				                            <th>{{ "page.list.nb_question" | trans }}</th>
+				                            <th>{{ "page.list.order" | trans }}</th>
+				                            <th>Actions</th>
+				                        </tr>
+				                    </thead>
+				                    <tbody>
+				                    {% for bloc in blocs[key] %}
+				                        <tr>
+				                            <td><a href="{{ path('edit_bloc', {"bloc" : bloc.getId }) }}"> {{ bloc.getTitle }} </a></td>
+				                            <td>{{ bloc.getCountQuestion }}</td>
+				                            <td>{{ bloc.getOrder }}</td>
+				                            <td>
+	                        	 				<a href="{{ path('edit_bloc', {"bloc" : bloc.getId }) }}"><i class="fa fa-tasks" aria-hidden="true"></i></a>
+{# 	                        	 				{% if not entity.getIsActive and allow_edit %}#}
+					                        	 <a href="#" data-url="{{ path('edit_init_bloc', {'quiz' : entity.id,'category' : key, 'bloc' : bloc.getId}) }}" id="manual-ajax_{{ bloc.getId }}" data-toggle="modal" data-target=".bs-example-modal-lg{{ bloc.getId }}"
+													 onclick="getUpdateAqContent({{ bloc.id }} )"	 ><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
+				                            	<a onclick="deleteAQ('{{ 'page.list.delete'| trans  }}', '{{ path("aq_bloc_delete", { 'bloc': bloc.id }) }}', '{{'button.delete'|trans}}', '{{'button.cancel'|trans}}')" href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+{# 				                        		{% endif %}#}
+				                        </tr>
+				          <!-- modal -->
+							<div class="modal fade bs-example-modal-lg{{ bloc.id }} " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			  				<div class="modal-dialog modal-lg" style=" width: 500px !important;">
+			    				<div class="modal-content">
+									<div class="ajax-loader" style="position: absolute;width:100%;height:100%;display: none; text-align: center; margin-bottom: 15px;">
+										<img src="{{ asset('bundles/quizback/images/loading_spinner.gif') }}" alt="" />
+									</div>
+			    				</div>
+			  				</div>
+							</div>
+						<!-- modal --> 
+				                        {% endfor %}
+				                    </tbody>
+			                	</table>
+			            {% else %}
+			            	<div class="display-block alert-info alert" id="res-msg">{{ "page.empty" | trans }}</div>
+			            {% endif %}
+{# 			            {% if not entity.getIsActive and allow_edit   %}#}
+				             <div style="margin-top: 0px" class="row">
+				              	<a href="{{ path('new_bloc', {'quiz' : entity.id,'category' : key}) }}" id="manual-ajax" class="right width-link-add-edit btn btn-default btn-sm" data-toggle="modal" data-target=".bs-example-modal-lg" ><i class="splashy-document_letter_add"></i>{{ "page.list.add" | trans }}</a>
+	               			 </div>
+{#                			{% endif %}#}
+						</div>
+ 
+					{% endfor %}
+					</div>
+				</div>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	<div class="modal-dialog modal-lg" style=" width: 500px !important;">
+		<div class="modal-content">
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+ $(document).ready(function() {
+     $('table.bloc_list').DataTable( {
+        "order": [[ 2, "desc" ]],
+        bFilter: false, bInfo: false,
+        bPaginate: false,
+        "aoColumnDefs": [
+                         {
+                             "bSortable": false,
+                             "aTargets": [3]
+                         }
+                     ]
+     } );
+ } );
+
+</script> 
+{% endblock %}
+
+

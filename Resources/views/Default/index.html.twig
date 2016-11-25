@@ -1,0 +1,10 @@
+
+{% extends 'quizBackBundle::layout.html.twig' %}
+{% block main_content -%}
+<ul><li>
+<a href="{{ path("quiz") }}">BackOffice</a>
+</li>{% if quiz_front %}<li>
+<a href="{{ path('home_quiz') }}">FrontOffice</a>
+</li>{% endif %}
+</ul>
+{% endblock %}

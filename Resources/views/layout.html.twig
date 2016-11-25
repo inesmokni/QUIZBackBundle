@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>{% trans %}Quiz{% endtrans %}</title>
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('bundles/quizback/css/style.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/quizback/css/blue.css') }}" />
+        <link rel="stylesheet" href="{{ asset('bundles/quizback/css/smoke.gebo.css') }}" />
+            <!-- enhanced select -->
+    	<link rel="stylesheet" href="{{ asset('bundles/quizback/css/chosen.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/quizback/css/font-awesome.min.css') }}" />
+        
+    {% block javascript %}{{ include('quizBackBundle::backend_jsincludes.html.twig') }}{% endblock %}
+</head>
+<body class="full_width">
+    <div id="maincontainer" class="clearfix" style="margin: 0 auto; max-width: 1700px;">
+        <div id="contentwrapper">
+            <div class="main_content" style=" padding: 150px 20px 20px;">
+            <div class="margin-top-20">{% block main_content %}{% endblock %}</div>              
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

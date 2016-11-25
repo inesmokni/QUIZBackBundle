@@ -1,0 +1,17 @@
+
+services:
+    quiz.form._quiz_question_type: 
+        class: quiz\BackBundle\Form\QuizQuestionType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type, alias: _quiz_question_type }
+    quiz.form.type._question_type: 
+        class: quiz\BackBundle\Form\Type\QuestionType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type, alias: _question_type }
+    quiz.form.type._quiz_response_type: 
+        class: quiz\BackBundle\Form\Type\ResponseType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type, alias: _quiz_response_type }

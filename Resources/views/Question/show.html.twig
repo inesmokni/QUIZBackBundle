@@ -1,0 +1,120 @@
+{% extends 'mHQAdminBundle::layout.html.twig' %} 
+{% block main_breadcrumb %}
+    <li class=""><a href="{{ path('auto_questionnaire') }}" > {{'AQ.breadcrumb.label'|trans}}</a></li>
+    <li class=""><a href="{{ path('edit_aq', {"id" : entity.getBloc.getQuiz.getId }) }}" >{{'AQ.breadcrumb.aq'|trans}} V{{ entity.getBloc.getQuiz.getVersion }}</a></li>
+    <li class=""><a href="{{ path('edit_aq', {"id" : entity.getBloc.getQuiz.getId , 'category_code' : entity.getBloc.getAQCategory }) }}" > {{categories[entity.getBloc.getAqCategory] |trans}}</a></li>
+    <li class=""><a href="{{ path('edit_bloc', {"bloc" : entity.getBloc.getId }) }}" >{{ entity.getBloc.getTitle }}</a></li>
+    <li class=""><a href="{{ path('edit_bloc', {"bloc" : entity.getBloc.getId }) }}" >{{ "Questions" | trans }}</a></li>
+    <li class="last-li-active"><a href="{{ path('question_edit', {"question" : entity.getId }) }}" >{{ "Question " | trans }} {{ entity.getOrder }}</a></li>
+    {% endblock %}
+    {% block main_content -%}
+    <div class="tabbable tabbable-bordered">
+        <ul class="nav nav-tabs">
+            {% for key,category in categories %}
+                {% if entity.getBloc.getAqCategory == key  %}
+                    <li class="active"><a data-toggle="tab" href="#tab_br{{ loop.index }}" {% if loop.index == 1 %} aria-expanded="true"  {% endif %}>{{category }}</a></li> 
+
+                {% else %}
+                    <li class=""><a  href="{{ path('edit_aq', {"id" : entity.getBloc.getQuiz().getId() , "category_code" : key  }) }}" {% if loop.index == 1 %} aria-expanded="true"  {% endif %}> {{category }}</a></li> 
+                    {% endif %}
+                {% endfor %}
+        </ul>
+        <div class="tab-content">
+            {% for key,category in categories %}
+                <div id="tab_br{{ loop.index }}" class="tab-pane {% if entity.getBloc.getAqCategory == key  %}active{% endif %}">
+                    {% if entity.getBloc.getAqCategory == key %}
+                        <div class="bloc_header">
+                            <div class="left"><strong>{{ entity.getBloc.getTitle() }}</strong></div>
+                            <div class="right"><a href="{{ path('edit_bloc', {"bloc" : entity.getBloc.getId })}}">Retour à la liste des questions</a> </div>
+                        </div>
+                        <div class="clear"></div>
+                        {{ form_start(form, {"attr" :{"id" : "myForm"}}) }}
+                        <!-- questions --------------------------------------------------------------------->
+                        <div class="panel-body">
+                            {{ form_errors(form) }}
+                            <!-- content --------------------------------------------------------------------->
+
+
+                            <div class="aq_question_element question">
+                                {{ form_label(form.content) }}
+                                {{ form_widget(form.content) }}
+                                {{ form_errors(form.content) }}
+                                <div class="aq_form_error"></div>
+                            </div>
+                            <div class="aq_question_element question">
+                                {{ form_label(form.isNoted) }}
+                                <label>{% if (form.isNoted.vars.value == true)%}Oui{%else%} Non{%endif%}</label>
+                                <div class="aq_form_error"></div>
+                            </div>
+                            <div class="clear"></div>
+                            <!-- order --------------------------------------------------------------------->
+                            <div class="aq_question_element order">
+                                {{ form_label(form.order) }}
+                                <label>{{ form.order.vars.value }}</label>
+                                <div class="aq_form_error"></div>
+                            </div>
+                            <div class="clear"></div>
+                            <!-- type --------------------------------------------------------------------->
+                            <div class="aq_question_element type">
+                                {{ form_label(form.type) }}
+                                {% for key,val in form.type.vars.value %}
+                                    {% if val == true  %} <label>{{ aq_question_types[key] }}</label>{% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="clear"></div>
+                            <!-- parent_response --------------------------------------------------------------------->
+                            <div class="aq_question_element parent_response">
+                                <label  class="add-another-aq_parent_response add-link">Conditions :</label>
+                                <div data-question="" class="aq_parent_responses-fields-list"  id="mhq_centralbundle_question_aq_parent_responses_view" data-prototype="{{ form_widget(form.aq_parent_responses_view.vars.prototype)|e }}">
+                                    {% for responses_view in form.aq_parent_responses_view %}
+                                        {{ form_errors(responses_view) }}
+                                        {{ form_widget(responses_view) }}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="aq_question_element parent_response">
+                                {{ form_widget(form.aq_parent_responses) }}
+                                {{ form_errors(form.aq_parent_responses) }}
+                                {{ form_errors(form.aq_parent_responses) }}
+                            </div>
+                            <div class="clear"></div>
+                            <!-- Réponses --------------------------------------------------------------------->
+                            <fieldset class="form_legend response_fieldset" >
+                                <legend>Réponses</legend>
+                                <div>
+                                    <div data-question="" class="aq_responses-fields-list"  id="aq_responses-fields-list" >
+                                        {% for aq_response in form.aq_responses %}
+                                            <div class="quiz_response-container">
+                                                {{ form_errors(aq_response) }} {{ form_widget(aq_response) }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="" >
+                                <div class=""> <legend>{{"page.form.help" |trans }}</legend>
+                                    {{ form_widget(form.help) }}
+
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <!-- actions -->
+                        <!-- /actions -->	
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" style=" width: 500px !important;">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div> 
+
+{% endblock %}
+
+

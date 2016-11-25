@@ -1,0 +1,66 @@
+{% block _quiz_response_type_widget %}
+{% spaceless %}
+{% set disabled = false %}
+{# {% if form.vars.value and  form.vars.value.getQuestion.getBloc.getQuiz.getIsActive %}#}
+{# 	{% set disabled = true %}#}
+{# {% endif %}#}
+{% if disabled == false %}
+<a onclick="javascript:deleteResponse(this);" href="javascript:void(0)" title="Supprimer" class="remove right"><span><img title="Supprimer" alt="Supprimer" src="{{ asset('bundles/quizback/images/delete-item.png') }}"></span></a>
+{% endif %}
+	<div class="quiz_response-element content" >
+		{{ form_label(form.content) }}
+		{{ form_widget(form.content) }}
+		{{ form_errors(form.content) }}
+	</div>
+		<div class="quiz_response-element order" >
+		{% if disabled == false %}
+		{{ form_label(form.order) }}
+		{{ form_widget(form.order) }}
+		{{ form_errors(form.order) }}
+		{% else %}
+		{{ form_label(form.order) }}
+		 <label>{{ form.order.vars.value }}</label>
+		{% endif %}
+	</div>
+{# 	<div class="clear"></div>#}
+	{% if form.has_text is defined %}
+		<div class="quiz_response-element has_text" >
+		{% if disabled == false %}
+		{{ form_label(form.has_text) }}
+		{{ form_widget(form.has_text) }}
+		{{ form_errors(form.has_text) }}
+		{% else %}
+			{{ form_label(form.has_text) }}
+		 <label>{{ form.has_text.vars.checked ?  "Oui" : "Non" }}</label>
+		{% endif %}
+	</div>
+	{% endif %}
+	{% if form.extraQuestion is defined %}
+	<div class="quiz_response-element extra_question_element clear" >
+		{{ form_label(form.extraQuestion) }}
+		{{ form_widget(form.extraQuestion) }}
+		{{ form_errors(form.extraQuestion) }}
+	</div>
+	{% endif %}
+<script type="text/javascript">
+{% if disabled == false and form.has_text is defined  %}
+$("#{{ form.has_text.vars.id }}").change(function(){
+	var parent = $(this).closest('.quiz_response-element').next('.quiz_response-element');
+	if($(this).is(':checked')){
+		$(parent).find('.extra_question').slideDown("normal", function () {
+		 });
+		} else {
+			$(parent).find('.extra_question').slideUp("normal", function () {
+                            $(parent).find(".flag_text").each(function(){
+                $(this).val('');
+                            })
+                            
+			 });
+			}
+});
+$("#{{ form.has_text.vars.id }}").trigger("change");	
+{% endif %}
+</script>
+<div class="clear"></div>
+{% endspaceless %}
+{% endblock %}

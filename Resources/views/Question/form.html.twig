@@ -1,0 +1,87 @@
+ {{ form_start(form, {"attr" :{"id" : "myForm"}}) }}
+                        <!-- questions --------------------------------------------------------------------->
+                        <div class="panel-body">
+                            <div class="alert alert-danger alert-dismissable" style="display:none;">
+                            </div>
+                            {{ form_errors(form) }}
+                            <!-- content --------------------------------------------------------------------->
+
+                            <div class="clear"></div>
+                            <div class="quiz_element question">
+                                {{ form_label(form.content) }}
+                                {{ form_widget(form.content) }}
+                                {{ form_errors(form.content) }}
+                                <div class="aq_form_error"></div>
+                            </div>
+                            {% if  form.isNoted is defined %}
+                            <div class="quiz_element question" style ='display: inline-block; '>
+                                {{ form_label(form.isNoted) }}
+                                {{ form_widget(form.isNoted) }}
+                                {{ form_errors(form.isNoted) }}
+                            </div>
+                            <div class="clear"></div>
+                            {% endif %}
+                            <!-- order --------------------------------------------------------------------->
+                            <div class="quiz_element order">
+                                {{ form_label(form.order) }}
+                                {{ form_widget(form.order) }}
+                                {{ form_errors(form.order) }}
+                                <div class="aq_form_error"></div>
+                            </div>
+                            <div class="clear"></div>
+                            <!-- type --------------------------------------------------------------------->
+                            <div class="quiz_element type">
+                                {{ form_label(form.type) }}
+                                {{ form_widget(form.type) }}
+                                {{ form_errors(form.type) }}
+                            </div>
+                            <div class="clear"></div>
+                            <!-- parent_response --------------------------------------------------------------------->
+                            {% if  form.parent_responses_view is defined%}
+                            <div class="quiz_element parent_response">
+                                <a id="add-another-parent_response" href="javascript:void(0)" title="Ajouter" class="add-another-parent_response add-link">Ajouter Condition</a>
+                                <div data-question="" class="parent_responses-fields-list"  id="_parent_responses_view" data-prototype="{{ form_widget(form.parent_responses_view.vars.prototype)|e }}">
+                                    {% for responses_view in form.parent_responses_view %}
+                                        {{ form_errors(responses_view) }}
+                                        {{ form_widget(responses_view) }}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="quiz_element parent_response">
+                                {{ form_widget(form.parent_responses) }}
+                                {{ form_errors(form.parent_responses) }}
+                            </div>
+                            <div class="clear"></div>
+                            {% endif %}
+                            <!-- Réponses --------------------------------------------------------------------->
+                            <fieldset class="form_legend response_fieldset" >
+                                <legend>Réponses</legend>
+                                <div>
+                                    <div data-question="" class="quiz_responses-fields-list"  id="quiz_responses-fields-list" data-prototype="{{ form_widget(form.responses.vars.prototype)|e }}">
+                                        {% for aq_response in form.responses %}
+                                            <div class="quiz_response-container">
+                                                {{ form_errors(aq_response) }} {{ form_widget(aq_response) }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+
+                                    <a id="add-another-quiz_response" href="javascript:void(0)" title="Ajouter" class="add-another-quiz_response add-link right"><span><img title="Ajouter" alt="Ajouter" src="{{ asset('bundles/quizback/images/add-item.png') }}"> Ajouter</span></a>
+
+                                </div>
+                                {{ form_widget(form._token) }}
+                            </fieldset>
+                            {% if  form.isNoted is defined %}
+                            <fieldset class="" >
+                                <div class="help_container"> <legend>{{"page.form.help" |trans }}</legend>
+                                    {{ form_widget(form.help) }}
+                                    {{ form_errors(form.help) }}
+                                </div>
+                            </fieldset>
+                            {% endif %}
+                        </div>
+                        <!-- actions -->
+                        <div class="form-actions" id="aq_questions_actions" >
+                            <a onclick="deleteElement('{{ 'question.delete_msg'| trans  }}', '{{ path("quizquestion_delete_ajax", { 'id': entity.getId }) }}', '{{'button.delete'|trans}}', '{{'button.cancel'|trans}}')"" href="javascript:void(0);" class="width-link-add-edit btn btn-default btn-sm" ><i class="splashy-document_letter_remove"></i>{{ "question.delete_button" | trans }}</a>   			
+                                {{ form_widget(form.submit) }}
+                        </div>
