@@ -1,6 +1,6 @@
 <?php
 
-namespace quiz\BackBundle\Form\Type;
+namespace QUIZ\BackBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

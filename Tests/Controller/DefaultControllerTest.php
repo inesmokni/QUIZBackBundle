@@ -1,6 +1,6 @@
 <?php
 
-namespace quiz\BackBundle\Tests\Controller;
+namespace QUIZ\BackBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

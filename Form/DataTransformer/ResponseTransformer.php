@@ -1,6 +1,6 @@
 <?php
 
-namespace quiz\BackBundle\Form\DataTransformer;
+namespace QUIZ\BackBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 

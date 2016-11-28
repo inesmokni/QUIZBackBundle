@@ -1,6 +1,6 @@
 <?php
 
-namespace quiz\BackBundle\DependencyInjection;
+namespace QUIZ\BackBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

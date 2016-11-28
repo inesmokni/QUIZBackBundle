@@ -1,6 +1,6 @@
 <?php
 
-namespace quiz\BackBundle\DependencyInjection;
+namespace QUIZ\BackBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace quiz\BackBundle\Form\Type;
+namespace QUIZ\BackBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -45,7 +45,7 @@ class ResponseType extends AbstractType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'quiz\BackBundle\Entity\Response'
+            'data_class' => 'QUIZ\BackBundle\Entity\Response'
         ));
     }
 

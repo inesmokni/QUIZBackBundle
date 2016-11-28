@@ -1,15 +1,15 @@
 <?php
 
-namespace quiz\BackBundle\Controller;
+namespace QUIZ\BackBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request; 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use quiz\BackBundle\Entity\Question; 
-use quiz\BackBundle\Form\QuizQuestionType;
-use quiz\BackBundle\Entity\Bloc;
+use QUIZ\BackBundle\Entity\Question; 
+use QUIZ\BackBundle\Form\QuizQuestionType;
+use QUIZ\BackBundle\Entity\Bloc;
 
 /**
  * 

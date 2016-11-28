@@ -1,6 +1,6 @@
 <?php
 
-namespace quiz\BackBundle\Entity;
+namespace QUIZ\BackBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Quiz
  *
  * @ORM\Table(name="quiz")
- * @ORM\Entity(repositoryClass="quiz\BackBundle\Repository\QuizRepository")
+ * @ORM\Entity(repositoryClass="QUIZ\BackBundle\Repository\QuizRepository")
  */
 class Quiz
 {
@@ -193,10 +193,10 @@ class Quiz
     /**
      * Add bloc
      *
-     * @param \quiz\BackBundle\Entity\Bloc $bloc
+     * @param \QUIZ\BackBundle\Entity\Bloc $bloc
      * @return Quiz
      */
-    public function addBloc(\quiz\BackBundle\Entity\Bloc $bloc)
+    public function addBloc(\QUIZ\BackBundle\Entity\Bloc $bloc)
     {
     	$bloc->setQuiz($this);
         $this->bloc[] = $bloc;
@@ -207,9 +207,9 @@ class Quiz
     /**
      * Remove bloc
      *
-     * @param \quiz\BackBundle\Entity\Bloc $bloc
+     * @param \QUIZ\BackBundle\Entity\Bloc $bloc
      */
-    public function removeBloc(\quiz\BackBundle\Entity\Bloc $bloc)
+    public function removeBloc(\QUIZ\BackBundle\Entity\Bloc $bloc)
     {
         $this->bloc->removeElement($bloc);
     }

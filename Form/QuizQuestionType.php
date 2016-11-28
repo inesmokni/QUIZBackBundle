@@ -1,13 +1,13 @@
 <?php
 
-namespace quiz\BackBundle\Form;
+namespace QUIZ\BackBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use quiz\BackBundle\Form\Type\ParentViewType;
-use quiz\BackBundle\Form\Type\ParentType;
-use quiz\BackBundle\Form\Type\ResponseType;
+use QUIZ\BackBundle\Form\Type\ParentViewType;
+use QUIZ\BackBundle\Form\Type\ParentType;
+use QUIZ\BackBundle\Form\Type\ResponseType;
 
 /**
  * 
@@ -82,7 +82,7 @@ class QuizQuestionType extends AbstractType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'quiz\BackBundle\Entity\Question',
+            'data_class' => 'QUIZ\BackBundle\Entity\Question',
         	'block' => null
         ));
     }

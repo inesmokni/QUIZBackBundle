@@ -1,6 +1,6 @@
 <?php
 
-namespace quiz\BackBundle\Entity;
+namespace QUIZ\BackBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

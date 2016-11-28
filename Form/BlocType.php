@@ -1,6 +1,6 @@
 <?php
 
-namespace quiz\BackBundle\Form;
+namespace QUIZ\BackBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,7 +27,7 @@ class BlocType extends AbstractType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'quiz\BackBundle\Entity\Bloc'
+            'data_class' => 'QUIZ\BackBundle\Entity\Bloc'
         ));
     }
 

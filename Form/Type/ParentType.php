@@ -1,6 +1,6 @@
 <?php
 
-namespace quiz\BackBundle\Form\Type;
+namespace QUIZ\BackBundle\Form\Type;
  
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormBuilderInterface;
-use quiz\BackBundle\Form\DataTransformer\ResponseTransformer;
+use QUIZ\BackBundle\Form\DataTransformer\ResponseTransformer;
 
 /**
  * 

@@ -1,6 +1,6 @@
 <?php
 
-namespace quiz\BackBundle\Repository;
+namespace QUIZ\BackBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -46,7 +46,7 @@ class QuizRepository extends EntityRepository
 // 		$version = $subject->getQuizVersion();
 		
 // 		$qb = $this->getEntityManager()->createQueryBuilder();
-// 		$entities = $qb->select('b')->from('quiz\BackBundle\Entity\Bloc', 'b')
+// 		$entities = $qb->select('b')->from('QUIZ\BackBundle\Entity\Bloc', 'b')
 // 		->innerJoin("b.questions", "questions")
 // 		->innerJoin("b.quiz", "aq")
 // 		->innerJoin("questions.quiz_subject", "quiz_subject")
@@ -113,7 +113,7 @@ class QuizRepository extends EntityRepository
 	
 	public function getFirstBloc($version, $categ){
 		$qb = $this->getEntityManager()->createQueryBuilder();
-		$entities = $qb->select('b')->from('quiz\BackBundle\Entity\Bloc', 'b');
+		$entities = $qb->select('b')->from('QUIZ\BackBundle\Entity\Bloc', 'b');
 			$entities
 			->innerJoin("b.quiz", "quiz")
 			->andWhere("b.category = '".$categ."'");
@@ -151,7 +151,7 @@ class QuizRepository extends EntityRepository
 	
 	public function getBloc($version,$bloc){
 		$qb = $this->getEntityManager()->createQueryBuilder();
-		$entities = $qb->select('b')->from('quiz\BackBundle\Entity\Bloc', 'b');
+		$entities = $qb->select('b')->from('QUIZ\BackBundle\Entity\Bloc', 'b');
 		if($bloc !==null){
 			$entities
 			->innerJoin("b.quiz", "quiz")
@@ -202,7 +202,7 @@ class QuizRepository extends EntityRepository
 
 	public function findPrevBloc($bloc){
 		$qb = $this->getEntityManager()->createQueryBuilder();
-		$entities = $qb->select('b')->from('quiz\BackBundle\Entity\Bloc', 'b');
+		$entities = $qb->select('b')->from('QUIZ\BackBundle\Entity\Bloc', 'b');
 		if($bloc !==null){
 			$entities
 			->innerJoin("b.quiz", "quiz")
@@ -251,7 +251,7 @@ class QuizRepository extends EntityRepository
 	
 // 	public function getAQsubjectByVersion($id){
 // 		$qb = $this->getEntityManager()->createQueryBuilder();
-// 		$entities = $qb->select('distinct(resp.id)')->from('quiz\BackBundle\Entity\Response', 'resp')
+// 		$entities = $qb->select('distinct(resp.id)')->from('QUIZ\BackBundle\Entity\Response', 'resp')
 // 			->leftJoin("resp.quiz_subject", "aqp")
 // 			->leftJoin("aqp.subject", "subject")
 // 			->where("subject.id = " .$id )
@@ -274,7 +274,7 @@ class QuizRepository extends EntityRepository
 	
 	public function getQuestionByAQAndType($aq, $types){
 		$qb = $this->getEntityManager()->createQueryBuilder();
-		$entities = $qb->select('qu')->from('quiz\BackBundle\Entity\Question', 'qu')
+		$entities = $qb->select('qu')->from('QUIZ\BackBundle\Entity\Question', 'qu')
 		->leftJoin("qu.bloc", "b")
 		->leftJoin("b.quiz", "quiz")
 		->where("quiz.id = " .$aq->getId() )
@@ -299,7 +299,7 @@ class QuizRepository extends EntityRepository
 	
 	public function hasNoneConditionQuestions($bloc){
 		$qb = $this->getEntityManager()->createQueryBuilder();
-		$entities = $qb->select('qu.id')->from('quiz\BackBundle\Entity\Question', 'qu')
+		$entities = $qb->select('qu.id')->from('QUIZ\BackBundle\Entity\Question', 'qu')
 		->leftJoin("qu.bloc", "b")
 		->where("b.id = " .$bloc->getId() )
 		->andWhere('SIZE(qu.parent_responses) = 0');
@@ -334,7 +334,7 @@ class QuizRepository extends EntityRepository
 	
 // 	public function hasConditionQuestions($subject, $bloc){
 // 		$qb = $this->getEntityManager()->createQueryBuilder();
-// 		$entities = $qb->select('qu.id')->from('quiz\BackBundle\Entity\Question', 'qu')
+// 		$entities = $qb->select('qu.id')->from('QUIZ\BackBundle\Entity\Question', 'qu')
 // 		->leftJoin("qu.bloc", "b")
 // 		->leftJoin("qu.parent_responses", "pqu")
 // 		->leftJoin("pqu.quiz_subject", "quiz_subject")

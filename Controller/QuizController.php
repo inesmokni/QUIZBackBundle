@@ -1,6 +1,6 @@
 <?php
 
-namespace quiz\BackBundle\Controller;
+namespace QUIZ\BackBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -12,11 +12,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Response;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use quiz\BackBundle\Entity\Quiz;
-use quiz\BackBundle\Entity\Bloc; 
-use quiz\BackBundle\Form\BlocType;
-use quiz\BackBundle\Entity\Question;
-use quiz\BackBundle\Entity\Response as QuizResponse;
+use QUIZ\BackBundle\Entity\Quiz;
+use QUIZ\BackBundle\Entity\Bloc; 
+use QUIZ\BackBundle\Form\BlocType;
+use QUIZ\BackBundle\Entity\Question;
+use QUIZ\BackBundle\Entity\Response as QuizResponse;
 
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace quiz\BackBundle;
+namespace QUIZ\BackBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

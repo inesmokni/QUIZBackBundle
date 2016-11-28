@@ -1,6 +1,6 @@
 <?php
 
-namespace quiz\BackBundle\Entity;
+namespace QUIZ\BackBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -118,10 +118,10 @@ class Bloc
     /**
      * Set quiz
      *
-     * @param \quiz\BackBundle\Entity\Quiz $autoQuestionnaire
+     * @param \QUIZ\BackBundle\Entity\Quiz $autoQuestionnaire
      * @return Bloc
      */
-    public function setQuiz(\quiz\BackBundle\Entity\Quiz $autoQuestionnaire = null)
+    public function setQuiz(\QUIZ\BackBundle\Entity\Quiz $autoQuestionnaire = null)
     {
         $this->quiz = $autoQuestionnaire;
 
@@ -131,7 +131,7 @@ class Bloc
     /**
      * Get quiz
      *
-     * @return \quiz\BackBundle\Entity\Quiz 
+     * @return \QUIZ\BackBundle\Entity\Quiz 
      */
     public function getQuiz()
     {
@@ -141,10 +141,10 @@ class Bloc
     /**
      * Add questions
      *
-     * @param \quiz\BackBundle\Entity\ $Questions
+     * @param \QUIZ\BackBundle\Entity\ $Questions
      * @return Bloc
      */
-    public function addQuestion(\quiz\BackBundle\Entity\Question $Questions)
+    public function addQuestion(\QUIZ\BackBundle\Entity\Question $Questions)
     {
     	$Questions->setQuiz($this);
         $this->questions[] = $Questions;
@@ -155,9 +155,9 @@ class Bloc
     /**
      * Remove questions
      *
-     * @param \quiz\BackBundle\Entity\ $Questions
+     * @param \QUIZ\BackBundle\Entity\ $Questions
      */
-    public function removeQuestion(\quiz\BackBundle\Entity\Question $Questions)
+    public function removeQuestion(\QUIZ\BackBundle\Entity\Question $Questions)
     {
         $this->questions->removeElement($Questions);
     }
