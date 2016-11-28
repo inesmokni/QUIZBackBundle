@@ -25,7 +25,7 @@ class QuestionController extends Controller
      *
      * @Route("/{bloc}", name="quizquestion_create")
      * @Method("POST")
-     * @Template("quizBackBundle:Question:new.html.twig")
+     * @Template("QUIZBackBundle:Question:new.html.twig")
      */
     public function createAction(Request $request, Bloc $bloc)
     {
@@ -222,7 +222,7 @@ a
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('quizBackBundle:Question')->find($id);
+            $entity = $em->getRepository('QUIZBackBundle:Question')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Question entity.');
@@ -243,7 +243,7 @@ a
     public function deleteAjaxAction(Request $request, $id)
     {
     		$em = $this->getDoctrine()->getManager();
-    		$entity = $em->getRepository('quizBackBundle:Question')->find($id);
+    		$entity = $em->getRepository('QUIZBackBundle:Question')->find($id);
     
     		if (!$entity) {
     			throw $this->createNotFoundException('Unable to find Question entity.');

@@ -41,7 +41,7 @@ class ResponseTransformer implements DataTransformerInterface {
             return array();
         }
         
-        $val = $this->em->getRepository('quizBackBundle:Response')->findById(explode(",", $val));
+        $val = $this->em->getRepository('QUIZBackBundle:Response')->findById(explode(",", $val));
         return $val;
     }
 

@@ -53,7 +53,7 @@ class QuizController extends Controller
 	public function indexAction()
 	{
 		$em = $this->getDoctrine()->getManager();
-		$entities = $em->getRepository('quizBackBundle:Quiz')->findBy(array(),array('isActive' => 'DESC'));
+		$entities = $em->getRepository('QUIZBackBundle:Quiz')->findBy(array(),array('isActive' => 'DESC'));
 		
 		return array(
 				"entities" => $entities,
@@ -76,7 +76,7 @@ class QuizController extends Controller
 		}
 		$blocs = array();
 		foreach ($categories as $key=>$category):
-			$aq_blocs = $em->getRepository('quizBackBundle:Bloc')->findBy(array("category" =>$key, "quiz" => $quiz));
+			$aq_blocs = $em->getRepository('QUIZBackBundle:Bloc')->findBy(array("category" =>$key, "quiz" => $quiz));
 			$blocs[$key] = $aq_blocs;
 		endforeach;
 		$allow_edit=null;
@@ -305,7 +305,7 @@ class QuizController extends Controller
 		$result["choices"]=array();
 		$em = $this->getDoctrine()->getManager();
 		if( $id !== null ){
-		$question = $em->getRepository('quizBackBundle:Question')->find($id);
+		$question = $em->getRepository('QUIZBackBundle:Question')->find($id);
 		
 		if (!$question) {
 			$result["success"] = false;
@@ -325,7 +325,7 @@ class QuizController extends Controller
 	
 	private function cloneQuiz($entity){
 		$em = $this->getDoctrine()->getManager();
-		$last = $em->getRepository('quizBackBundle:Quiz')->findOneby(array(),array('version' => 'DESC'),1);
+		$last = $em->getRepository('QUIZBackBundle:Quiz')->findOneby(array(),array('version' => 'DESC'),1);
 		$new_entity = new Quiz();
 		$new_entity->setVersion($last->getVersion() + 1);
 		$new_entity->setIsActive(false);
@@ -410,7 +410,7 @@ class QuizController extends Controller
 		$result =array();
 		$result["success"] = true;
 		$em = $this->getDoctrine()->getManager();
-		$entity = $em->getRepository('quizBackBundle:Quiz')->findOneById($id);
+		$entity = $em->getRepository('QUIZBackBundle:Quiz')->findOneById($id);
 		
 		if (!$entity) {
 			throw $this->createNotFoundException('Unable to find Page entity.');
@@ -465,13 +465,13 @@ class QuizController extends Controller
 		$result =array();
 		$result["success"] = true;
 		$em = $this->getDoctrine()->getManager();
-		$entity = $em->getRepository('quizBackBundle:Quiz')->findOneById($id);
+		$entity = $em->getRepository('QUIZBackBundle:Quiz')->findOneById($id);
 	
 		if (!$entity) {
 			throw $this->createNotFoundException('Unable to find Page entity.');
 		}
 		
-		$active = $em->getRepository('quizBackBundle:Quiz')->findOneby(array("isActive" => true));
+		$active = $em->getRepository('QUIZBackBundle:Quiz')->findOneby(array("isActive" => true));
 		$active->setIsActive(false);
 		$entity->setIsActive(true);
 		

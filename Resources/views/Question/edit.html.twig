@@ -1,4 +1,4 @@
-  {% extends 'quizBackBundle::layout.html.twig' %}
+  {% extends 'QUIZBackBundle::layout.html.twig' %}
     {% block main_content -%}
     <div class="tabbable tabbable-bordered">
         <ul class="nav nav-tabs">
@@ -19,7 +19,7 @@
                             <div class="right"><a href="{{ path('edit_bloc', {"bloc" : entity.getBloc.getId })}}">Retour à la liste des questions</a> </div>
                         </div>
                         <div class="clear"></div>
-                           {% include 'quizBackBundle:Question:form.html.twig' with {'form': form}   %}
+                           {% include 'QUIZBackBundle:Question:form.html.twig' with {'form': form}   %}
                         <!-- /actions -->	
                     {% endif %}
                 </div>

@@ -34,7 +34,7 @@ class QuizQuestionType extends AbstractType {
         if( $this->config["question_has_condition"] == true){
         	$questions = array();
         	$bloc = $options["block"];
-        	$questions = $this->em->getRepository('quizBackBundle:Quiz')->getQuestionByAQAndType($bloc->getQuiz(), array(1, 2, 3));
+        	$questions = $this->em->getRepository('QUIZBackBundle:Quiz')->getQuestionByAQAndType($bloc->getQuiz(), array(1, 2, 3));
         	foreach ($questions as $qu)
         		$choices[$qu->getId()] = $qu->getContent();
         	
