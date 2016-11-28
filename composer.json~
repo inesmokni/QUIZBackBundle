@@ -1,5 +1,5 @@
 {
-	"name" : "pxquiz/back-bundle",
+	"name" : "inesmokni/back-bundle",
 	"description" : "Bundle to create and manage multiples quiz",
 	"keywords" : [
 		"quiz", "question", "response"
