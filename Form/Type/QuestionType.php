@@ -20,8 +20,7 @@ class QuestionType extends AbstractType {
 
     public function __construct($container) {
         $this->container = $container;
-        $config = $this->container->getParameter("_quiz");
-        $aq_types = $config["question_type"];
+        $aq_types = $this->container->getParameter("question_type");
         $this->choices = $aq_types;
     }
 

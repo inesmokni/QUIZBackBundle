@@ -11,7 +11,7 @@ class ResponseType extends AbstractType {
 	
 	public function __construct($container,  $disabled = false){
 		$this->disabled = $disabled;
-		$this->config = $container->getParameter("_quiz");
+		$this->extra_response = $container->getParameter("extra_response");
 	}
 	
     /**
@@ -32,7 +32,7 @@ class ResponseType extends AbstractType {
          ->add('order','integer', array("label" => "response.form.order","attr" => array("min"=>0 ,"step"=>"1")))
 //          ->add('extraQuestion', 'translatable_text', array("required" => false, "parent_data" => $builder->getData(), "type" => "flag_text", "label" => false, "attr" => array("class" => "extra_question")))
         ;
-        if( isset($this->config["extra_response"]) && $this->config["extra_response"] ){
+        if( $this->extra_response ){
         	$builder         
         		->add('has_text', 'checkbox', array("label" => "response.form.has_text", "required" => false))
         		->add('extraQuestion', 'text', array("required" => false, "label" => false, "attr" => array("class" => "extra_question flag_text")))

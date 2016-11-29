@@ -82,8 +82,7 @@ class QuestionController extends Controller
         $question = new Question();
         
         $form   = $this->createCreateForm($question, $bloc);
-        $config = $this->container->getParameter("_quiz"); 
-        $categories = $config["categories"];
+        $categories = $this->container->getParameter("categories"); 
         
         return array(
             'entity' => $bloc,
@@ -111,8 +110,7 @@ a
         $editForm = $this->createEditForm($question);
         $deleteForm = $this->createDeleteForm($question->getId());
 
-        $config = $this->container->getParameter("_quiz"); 
-        $categories = $config["categories"];
+        $categories = $this->container->getParameter("categories"); 
         
         return array(
             'entity'      => $question,
@@ -139,8 +137,7 @@ a
     	$editForm = $this->createEditForm($question, true);
     	$deleteForm = $this->createDeleteForm($question->getId());
     
-    	$config = $this->container->getParameter("_quiz"); 
-        $categories = $config["categories"];
+    	$categories = $this->container->getParameter("categories"); 
     	
     	return array(
     			'entity'      => $question,

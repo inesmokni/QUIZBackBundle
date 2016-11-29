@@ -68,8 +68,7 @@ class QuizController extends Controller
 	public function editAction(Quiz $quiz, $category_code = null)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$config = $this->container->getParameter("_quiz"); 
-        $categories = $config["categories"];
+		$categories = $this->container->getParameter("categories"); 
 		if(!$category_code){
 			$keys = array_keys($categories);
 			$category_code = reset($keys);
@@ -96,8 +95,7 @@ class QuizController extends Controller
 	 */
 	public function editBlocAction(Bloc $bloc)
 	{
-		$config = $this->container->getParameter("_quiz"); 
-        $categories = $config["categories"];
+		$categories = $this->container->getParameter("categories"); 
 		
 		return array(
 				"categories" => $categories,

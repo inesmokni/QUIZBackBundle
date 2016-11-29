@@ -20,7 +20,10 @@ class QuizQuestionType extends AbstractType {
 
     public function __construct($container) {
         $this->em = $container->get('doctrine')->getEntityManager();
-        $this->config = $container->getParameter("_quiz");
+        $this->question_has_condition = $container->getParameter("question_has_condition");
+        $this->question_has_score = $container->getParameter("question_has_score");
+        $this->question_has_help = $container->getParameter("question_has_help");
+        
     }
 
     /**
