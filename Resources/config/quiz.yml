@@ -1,5 +1,4 @@
 parameters: 
-  _quiz:
     categories: 
         C01: Catéagorie 1
         C02: Catéagorie 2

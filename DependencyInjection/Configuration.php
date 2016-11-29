@@ -24,6 +24,18 @@ class Configuration implements ConfigurationInterface
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
 
+        
+        $rootNode
+        ->children()
+        ->variableNode('categories')->treatNullLike(array())->end()
+        ->variableNode('question_type')->defaultValue(array(0=> 'Texte libre',1=> 'Radio',2=> 'Checkbox',3=> 'Combobox'))->treatNullLike(array())->end()
+        ->booleanNode('extra_response')->defaultFalse()->end()
+        ->booleanNode('question_has_score')->defaultFalse()->end()
+        ->booleanNode('question_has_condition')->defaultFalse()->end()
+        ->booleanNode('question_has_help')->defaultFalse()->end()
+        ->end()
+        ;
+         
         return $treeBuilder;
     }
 }
