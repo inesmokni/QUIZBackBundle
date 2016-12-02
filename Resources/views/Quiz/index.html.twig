@@ -110,7 +110,17 @@ function activateAQ(msg_duplicate, url){
 }
 </script> 
 {% else %}
-	<a href="{{ path('init_quiz')}}" >{{ "quiz.init" | trans }}</a>
+<div>
+<div style="font-size: 17px;
+    font-weight: bold;
+    line-height: 43px;
+    text-align: center;">Welcome to pxquiz/back-bundle</br>
+
+This step is required to initialize your database content and will be needed only once. </br>
+	<a href="{{ path('init_quiz')}}" >{{ "Start" | trans }}</a>
+ </div>
+	
+</div>
 {% endif %}
 {% endblock %}
 
