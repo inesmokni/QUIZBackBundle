@@ -1,0 +1,88 @@
+quiz:
+  init: intialiser mon quiz 
+  is_active:
+    yes: Actif
+    no: Inactif
+  list:
+    edit: modifier
+    delete: supprimer
+    duplicate: Dupliquer
+    activate: Activer
+    version: Version
+    nb_user: Nombre des éditeurs
+    nb_question: Nombre des questions
+    status: Statut
+    add: Ajouter
+    delete_msg: "Voulez vous supprimer ce quiz ?"
+    duplicate: Dupliquer
+    activate: Activer
+    duplicate_msg: "Voulez vous dupliquer ce quiz ?"
+    duplicate_loading: Duplication du quizest en cours, veuillez patienter
+    activate_msg: "Voulez vous activer ce quiz ?"
+    activate_loading: Activation du quizest en cours, veuillez patienter
+  FO:
+    rep_empty: Veuillez renseigner une réponse
+    end_quiz : Félicitations, vous venez de terminer le quiz.
+page:
+  add: Ajouter une nouvelle question
+  parent: "Réponse mère :"
+  empty: Acune page pour ce quiz
+  list:
+    title: Nom dans le menu
+    page: Page
+    nb_question: Nombre de question
+    order: Ordre
+    add: Ajouter une nouvelle page
+    delete: "Voulez vous supprimer cette page ?"
+  form:
+    question: "Question :"
+    order: "Ordre :"
+    type: "Type :"
+    title: "Nom dans le menu :"
+    titlePage: "Titre de la page:"
+    url_name: "URL :"
+    content : "Contenu :"
+    parent: "Menu principal :"
+    add: Ajouter une nouvelle page
+    delete: "Vous allez supprimer cette page ?"
+    url_invalid: L'URL saisie contien des caractères non conforme..
+    help: Aide
+    isNoted: "Notée :"
+    ownerHelp: "Aide exploitant :"
+    developperHelp: "Aide développeur :"
+  breadcrumb:
+    list: CMS
+    edit: Modifier page
+    new: Créer page  
+    pages: Pages statiques  
+  create:
+    success: Page crée avec succés
+    failure: Création de la page échouée
+  update:
+    success: Mise à jour de la page effectuée avec succés
+    failure: Mise à jour de la page échouée
+  delete:
+    success: Page supprimée avec succés
+    failure: Supression de lapage échouée
+    
+question:
+    empty: Aucune question pour cette page
+    list.question : Question
+    list.order: Ordre
+    delete_msg: "Voulez vous supprimer cette question ?"
+    delete_button: Supprimer question
+    errors: 
+      RESPONSE_ORDER: Veuillez vérifier l'ordre des réponses
+response:
+  form:
+    response: "Réponse :"
+    order: "Ordre :" 
+    has_text: "Texte libre :"
+    extra_question: "Question supplémentaire : "
+    
+button:
+  cancel: Annuler
+  delete: Supprimer
+  update: Mettre à jour
+  add: Ajouter
+  edit: Modifier
