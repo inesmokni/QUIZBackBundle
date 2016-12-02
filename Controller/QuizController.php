@@ -17,6 +17,7 @@ use QUIZ\BackBundle\Entity\Bloc;
 use QUIZ\BackBundle\Form\BlocType;
 use QUIZ\BackBundle\Entity\Question;
 use QUIZ\BackBundle\Entity\Response as QuizResponse;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 /**
@@ -212,11 +213,11 @@ class QuizController extends Controller
 	}
 	
 	private function createInitBlocForm($quiz,$category,$entity = null){
-		$form = $this->createForm(new BlocType(), $entity, array(
+		$form = $this->createForm(BlocType::class, $entity, array(
 				'action' => $this->generateUrl('create_bloc', array('quiz' => $quiz->getId(), 'category' => $category)),
 				'method' => 'POST',
 		));
-		$form->add('submit', 'submit', array('label' => 'Enregister', 'attr'=> array( 'class' => 'right btn btn-default btn-sm')));
+		$form->add('submit', SubmitType::class, array('label' => 'Enregister', 'attr'=> array( 'class' => 'right btn btn-default btn-sm')));
 		
 		return $form;
 	}
@@ -226,7 +227,7 @@ class QuizController extends Controller
 				'action' => $this->generateUrl('update_init_bloc', array('aq' => $aq->getId(), 'category' => $category, "id" => $entity->getId())),
 				'method' => 'POST',
 		));
-		$form->add('submit', 'submit', array('label' => 'Enregister', 'attr'=> array( 'class' => 'right btn btn-default btn-sm')));
+		$form->add('submit', SubmitType::class, array('label' => 'Enregister', 'attr'=> array( 'class' => 'right btn btn-default btn-sm')));
 	
 		return $form;
 	}
@@ -244,7 +245,7 @@ class QuizController extends Controller
 		return $this->createFormBuilder()
 		->setAction($this->generateUrl('bloc_delete', array('id' => $id)))
 		->setMethod('DELETE')
-		->add('submit', 'submit', array('label' => 'Delete'))
+		->add('submit', SubmitType::class, array('label' => 'Delete'))
 		->getForm()
 		;
 	}

@@ -3,11 +3,11 @@ parameters:
         C01: Catéagorie 1
         C02: Catéagorie 2
         C03: Catéagorie 3
-    question_type:
-        0: Texte libre
-        1: Radio
-        2: Checkbox
-        3: Combobox
+#    question_type:
+#        0: Texte libre
+#        1: Radio
+#        2: Checkbox
+#        3: Combobox
     question_has_score : false
     question_has_condition: false
     question_has_help: false

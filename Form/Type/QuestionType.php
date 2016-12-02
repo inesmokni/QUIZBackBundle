@@ -4,6 +4,7 @@ namespace QUIZ\BackBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,20 +26,31 @@ class QuestionType extends AbstractType {
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
-        $resolver->setDefaults(array(
-        	'choices' => $this->choices,
+    	$this->configureOptions($resolver);
+    }
+    
+    public function configureOptions(OptionsResolver $resolver)
+    {
+    	$resolver->setDefaults(array(
+    		'choices' => $this->choices,
         	'expanded' => true
-        ));
+    	));
     }
 
     public function getParent() {
-    	return 'choice';
-    }
-    
-    public function getName() {
-        return '_question_type';
+    	return ChoiceType::class;
     }
 
+    
+    public function getName() {
+    	return $this->getBlockPrefix();
+    }
+    
+    public function getBlockPrefix()
+    {
+    	return '_question_type';
+    }
+    
 }
 
 ?>

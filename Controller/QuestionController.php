@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use QUIZ\BackBundle\Entity\Question; 
 use QUIZ\BackBundle\Form\QuizQuestionType;
 use QUIZ\BackBundle\Entity\Bloc;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * 
@@ -65,7 +66,7 @@ class QuestionController extends Controller
         	'block' => $bloc
         ));
 
-        $form->add('submit', 'submit', array('label' => 'button.add','attr'=> array('class' => 'width-link-add-edit btn btn-default btn-sm right')));
+        $form->add('submit',SubmitType::class, array('label' => 'button.add','attr'=> array('class' => 'width-link-add-edit btn btn-default btn-sm right')));
 
         return $form;
     }
@@ -168,7 +169,7 @@ a
 //             'method' => 'PUT',
 //         ));
 
-        $form->add('submit', 'submit', array('label' => 'button.update','attr'=> array('class' => 'width-link-add-edit btn btn-default btn-sm right')));
+        $form->add('submit', SubmitType::class, array('label' => 'button.update','attr'=> array('class' => 'width-link-add-edit btn btn-default btn-sm right')));
 
         return $form;
     }
@@ -264,7 +265,7 @@ a
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('quizquestion_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', SubmitType::class, array('label' => 'Delete'))
             ->getForm()
         ;
     }

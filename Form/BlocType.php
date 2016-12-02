@@ -5,7 +5,10 @@ namespace QUIZ\BackBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use mHQ\AdminBundle\Form\MenuType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class BlocType extends AbstractType {
 
@@ -17,25 +20,29 @@ class BlocType extends AbstractType {
     	
     	
         $builder
-        		->add("title", "text", array("required" => true, "attr" =>array("class" => "form-control")))
-        		->add("order", "integer", array("required" => true, "attr" =>array("class" => "form-control", "min" => 0, "step" => 1)))
-        ;
+        		->add("title", TextType::class, array("required" => true, "attr" =>array("class" => "form-control")))
+        		->add("order", IntegerType::class, array("required" => true, "attr" =>array("class" => "form-control", "min" => 0, "step" => 1)))
+        ; 
     }
-
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
+    
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
-        $resolver->setDefaults(array(
-            'data_class' => 'QUIZ\BackBundle\Entity\Bloc'
-        ));
+    	$this->configureOptions($resolver);
     }
-
-    /**
-     * @return string
-     */
+    
+    public function configureOptions(OptionsResolver $resolver)
+    {
+    	$resolver->setDefaults(array(
+    			 'data_class' => 'QUIZ\BackBundle\Entity\Bloc'
+    	));
+    }
+    
     public function getName() {
-        return '_bloc';
+    	return $this->getBlockPrefix();
+    }
+    
+    public function getBlockPrefix()
+    {
+    	return '_bloc';
     }
 
 }

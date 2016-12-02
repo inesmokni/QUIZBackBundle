@@ -4,11 +4,13 @@ namespace QUIZ\BackBundle\Form\Type;
  
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\Common\Persistence\ObjectManager; 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormBuilderInterface;
 use QUIZ\BackBundle\Form\DataTransformer\ResponseTransformer;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 /**
  * 
@@ -30,14 +32,19 @@ class ParentType extends AbstractType {
     	$builder->addModelTransformer($transformer);
     }
     
-    
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
-        $resolver->setDefaults(array(
-        ));
+    	$this->configureOptions($resolver);
     }
+    
+    public function configureOptions(OptionsResolver $resolver)
+    {
+    	$resolver->setDefaults(array(
+    	));
+    }
+    
 
     public function getParent() {
-    	return 'hidden';
+    	return HiddenType::class;
     }
     
     public function getName() {

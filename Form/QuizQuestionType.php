@@ -5,9 +5,16 @@ namespace QUIZ\BackBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use QUIZ\BackBundle\Form\Type\ParentViewType;
 use QUIZ\BackBundle\Form\Type\ParentType;
 use QUIZ\BackBundle\Form\Type\ResponseType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use QUIZ\BackBundle\Form\Type\QuestionType;
 
 /**
  * 
@@ -41,15 +48,15 @@ class QuizQuestionType extends AbstractType {
         	foreach ($questions as $qu)
         		$choices[$qu->getId()] = $qu->getContent();
         	
-        	$builder->add('parent_responses_view', 'collection', array("mapped" => false, "label" => "page.parent", "type" => new ParentViewType($this->em, $choices), 'allow_add' => true, 'allow_delete' => true, 'by_reference' => false, 'data' => $array))
+        	$builder->add('parent_responses_view', CollectionType::class, array("mapped" => false, "label" => "page.parent", "entry_type" => new ParentViewType($this->em, $choices), 'allow_add' => true, 'allow_delete' => true, 'by_reference' => false, 'data' => $array))
         	;
         }
         
         if( $this->config["question_has_score"] == true){
-        	$builder ->add('isNoted', 'checkbox', array('attr' => array(), 'required' => false,  "label" => "page.form.isNoted"));
+        	$builder ->add('isNoted', CheckboxType::class, array('attr' => array(), 'required' => false,  "label" => "page.form.isNoted"));
         }
         if( $this->config["question_has_help"] == true){
-        	$builder->add('help', 'textarea', array("data" => $builder->getData(), "label" => "page.form.help", 'required' => false))
+        	$builder->add('help', TextareaType::class, array("data" => $builder->getData(), "label" => "page.form.help", 'required' => false))
 //          ->add('help', 'translatable_text', array("parent_data" => $builder->getData(), "type" => "wysiwg_type", "label" => "page.form.help", 'required' => false))
         	;
         }
@@ -62,39 +69,45 @@ class QuizQuestionType extends AbstractType {
 
         if (!$options["disabled"]) {
             $builder
-            		->add('content', 'text', array("data" => $builder->getData(), "label" => "page.form.question", "attr" => array("class" => "flag_text")))
+            		->add('content', TextType::class, array("data" => $builder->getData(), "label" => "page.form.question", "attr" => array("class" => "flag_text")))
 //                     ->add('content', 'translatable_text', array("parent_data" => $builder->getData(), "type" => "flag_text", "label" => "page.form.question"))
-                    ->add('order', 'integer', array("label" => "page.form.order", "attr" => array("min" => 0)))
-                    ->add('type', '_question_type', array("label" => "page.form.type"))
-                    ->add('responses', 'collection', array("type" => "_quiz_response_type", 'allow_add' => true, 'allow_delete' => true, 'by_reference' => false, "attr" => array("class" => "form-control")))
+                    ->add('order',IntegerType::class, array("label" => "page.form.order", "attr" => array("min" => 0)))
+                    ->add('type', QuestionType::class, array("label" => "page.form.type"))
+                    ->add('responses', CollectionType::class, array("entry_type" => ResponseType::class, 'allow_add' => true, 'allow_delete' => true, 'by_reference' => false, "attr" => array("class" => "form-control")))
             ;
         } else {
             $builder
-            		->add('content', 'text', array("data" => $builder->getData(), "label" => "page.form.question", "attr" => array("disabled" => true, "class" => "flag_text")))
+            		->add('content',TextType::class, array("data" => $builder->getData(), "label" => "page.form.question", "attr" => array("disabled" => true, "class" => "flag_text")))
 //                     ->add('content', 'translatable_text', array("parent_data" => $builder->getData(), "type" => "flag_text", "label" => "page.form.question", "attr" => array("disabled" => true)))
-                    ->add('order', 'integer', array("label" => "page.form.order", "attr" => array("min" => 0)))
-                    ->add('type', '_question_type', array("label" => "page.form.type"))
-                    ->add('responses', 'collection', array("type" => new ResponseType(true), 'allow_add' => true, 'allow_delete' => true, 'by_reference' => false, "attr" => array("class" => "form-control")))
+                    ->add('order', IntegerType::class, array("label" => "page.form.order", "attr" => array("min" => 0)))
+                    ->add('type',  QuestionType::class, array("label" => "page.form.type"))
+                    ->add('responses', CollectionType::class, array("entry_type" => new ResponseType(true), 'allow_add' => true, 'allow_delete' => true, 'by_reference' => false, "attr" => array("class" => "form-control")))
 //                     ->add('help', 'translatable_text', array("parent_data" => $builder->getData(), "type" => "wysiwg_type", "label" => "page.form.help", 'required' => false))
             ;
         }
     }
-
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
+    
+    
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
-        $resolver->setDefaults(array(
-            'data_class' => 'QUIZ\BackBundle\Entity\Question',
-        	'block' => null
-        ));
+    	$this->configureOptions($resolver);
     }
-
-    /**
-     * @return string
-     */
+    
+    public function configureOptions(OptionsResolver $resolver)
+    {
+    	$resolver->setDefaults(array(
+    					'data_class' => 'QUIZ\BackBundle\Entity\Question',
+        				'block' => null
+    			));
+    }
+    
+    
     public function getName() {
-        return '_quiz_question_type';
+    	return $this->getBlockPrefix();
+    }
+    
+    public function getBlockPrefix()
+    {
+    	return '_quiz_question_type';
     }
 
 }

@@ -28,7 +28,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
         ->children()
         ->variableNode('categories')->treatNullLike(array())->end()
-        ->variableNode('question_type')->defaultValue(array(0=> 'Texte libre',1=> 'Radio',2=> 'Checkbox',3=> 'Combobox'))->treatNullLike(array())->end()
+        ->variableNode('question_type')->defaultValue(array('Texte libre' => 0,  'Radio' => 1 ,'Checkbox' => 2, 'Combobox' => 3))->treatNullLike(array())->end()
         ->booleanNode('extra_response')->defaultFalse()->end()
         ->booleanNode('question_has_score')->defaultFalse()->end()
         ->booleanNode('question_has_condition')->defaultFalse()->end()
